@@ -46,11 +46,11 @@ seq:
   - id: track_count
     type: s4
   - id: measure_headers
-    type: measure_header(_index)
+    type: measure_header(_index.as<u4>)
     repeat: expr
     repeat-expr: measure_count
   - id: tracks
-    type: track(version.minor_version.to_i, _index)
+    type: track(version.minor_version.to_i.as<u4>, _index.as<u4>)
     repeat: expr
     repeat-expr: track_count
 # instances:
@@ -359,8 +359,10 @@ types:
         type: s1
         repeat: expr
         repeat-expr: 3
+        if: version_minor > 0
       - id: rse_gain
         type: s1
+        if: version_minor > 0
       - id: effect_name
         type: int_byte_str
         if: version_minor > 0
